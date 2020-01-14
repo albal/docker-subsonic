@@ -6,7 +6,7 @@
 #   -v /mnt/music:/mnt/music
 #   albal/subsonic 1000
 
-FROM java:8-jre
+FROM arm32v7/openjdk:8
 
 MAINTAINER al@tsew.net
 
