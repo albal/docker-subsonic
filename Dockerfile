@@ -6,14 +6,16 @@
 #   -v /mnt/music:/mnt/music
 #   albal/subsonic 1000
 
-FROM java:8-jre
+FROM openjdk:8-jre
 
 MAINTAINER al@tsew.net
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-  apt-utils xz-utils sudo locales
+  apt-utils xz-utils sudo locales wget
+
+RUN ln -s /usr/local/openjdk-8/bin/java /bin
 
 ENV LANGUAGE en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -29,7 +31,7 @@ RUN wget "https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-6
   dpkg -i /tmp/subsonic.deb && \
   rm -rf /tmp/subsonic.deb
 
-RUN wget http://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz -O /tmp/ffmpeg-release-64bit-static.tar.xz && \
+RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz -O /tmp/ffmpeg-release-64bit-static.tar.xz && \
   mkdir -p /opt/ffmpeg && \
   tar xf /tmp/ffmpeg-release-64bit-static.tar.xz -C /opt/ffmpeg --strip-components=1
 
